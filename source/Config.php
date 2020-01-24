@@ -4,11 +4,11 @@
  * SITE CONFIG
  */
 define("SITE", [
-    "name" => "auth_php",
-    "desc" => "Auth system built in PHP",
+    "name" => "Auth",
+    "desc" => "Sistema de autenticação",
     "domain" => "localhost",
-    "locale" => "en_US",
-    "root" => "http://localhost/login_upinside"
+    "locale" => "pt_BR",
+    "root" => "http://localhost/auth"
 ]);
 
 /**
@@ -40,10 +40,11 @@ define("DATA_LAYER_CONFIG", [
  * SOCIAL
  */
 define("SOCIAL", [
-    "github_creator" => "doougui",
+    "facebook_page" => "doougui",
+    "facebook_author" => "Douglas Pinheiro Goulart",
+    "facebook_appId" => "1234567890",
     "twitter_creator" => "oDougui",
-    "linkedin_creator" => "douglaspigoulart",
-    "facebook_appId" => ""
+    "twitter_site" => "oDougui"
 ]);
 
 /**
