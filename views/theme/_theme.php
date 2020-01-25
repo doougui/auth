@@ -16,7 +16,7 @@
 <div class="ajax_load">
     <div class="ajax_load_box">
         <div class="ajax_load_box_circle"></div>
-        <div class="ajax_load_box_title">Aguarde, carrengando...</div>
+        <div class="ajax_load_box_title">Aguarde, carregando...</div>
     </div>
 </div>
 
