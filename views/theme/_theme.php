@@ -8,7 +8,7 @@
 
     <?= $head; ?>
 
-    <link rel="stylesheet" href="<?= asset("/style.min.css"); ?>"/>
+    <link rel="stylesheet" href="<?= asset("css/dist/style.min.css"); ?>"/>
     <link rel="icon" type="image/png" href="<?= asset("/images/favicon.png"); ?>"/>
 </head>
 <body>
@@ -24,7 +24,7 @@
     <?= $v->section("content"); ?>
 </main>
 
-<script src="<?= asset("/scripts.min.js"); ?>"></script>
+<script src="<?= asset("/js/dist/scripts.min.js"); ?>"></script>
 <?= $v->section("scripts"); ?>
 
 </body>
