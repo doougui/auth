@@ -50,13 +50,20 @@ class User extends DataLayer
             return false;
         }
 
-        $checkUserEmail = (new User())
-            ->find("email = :email", "email={$this->email}")
-            ->count();
+        $userByEmail = null;
+        if (!$this->id) {
+            $userByEmail = $this
+                ->find("email = :email", "email={$this->email}")
+                ->count();
+        } else {
+            $userByEmail = $this
+                ->find("email = :email AND id != :id", "email={$this->email}&id={$this->id}")
+                ->count();
+        }
 
-        if ($checkUserEmail) {
+        if ($userByEmail) {
             $this->fail = new Exception(
-                "Já existe um usuário cadastrado com este email"
+                "O email informado já está em uso"
             );
             return false;
         }
@@ -71,6 +78,10 @@ class User extends DataLayer
                 "Informe uma senha com pelo menos 5 caracteres"
             );
             return false;
+        }
+
+        if (password_get_info($this->password)["algo"]) {
+            return true;
         }
 
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);

@@ -51,6 +51,12 @@ define("SOCIAL", [
  * MAIL
  */
 define("MAIL", [
+    "host" => "smtp.sendgrid.net",
+    "port" => "587",
+    "user" => "apikey",
+    "passwd" => "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",
+    "from_name" => "Douglas Pinheiro Goulart",
+    "from_email" => "douglaspigoulart@gmail.com",
 
 ]);
 

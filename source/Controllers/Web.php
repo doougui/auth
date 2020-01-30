@@ -2,17 +2,30 @@
 
 namespace Source\Controllers;
 
+use Source\Models\User;
+
+/**
+ * Class Web
+ * @package Source\Controllers
+ */
 class Web extends Controller
 {
+    /**
+     * Web constructor.
+     * @param $router
+     */
     public function __construct($router)
     {
         parent::__construct($router);
 
-//        if (!empty($_SESSION["user"])) {
-//            $this->router->redirect("app.home");
-//        }
+        if (!empty($_SESSION["user"])) {
+            $this->router->redirect("app.home");
+        }
     }
 
+    /**
+     *
+     */
     public function login(): void
     {
         $head = $this->seo->optimize(
@@ -27,6 +40,9 @@ class Web extends Controller
         ]);
     }
 
+    /**
+     *
+     */
     public function register(): void
     {
         $head = $this->seo->optimize(
@@ -47,6 +63,9 @@ class Web extends Controller
         ]);
     }
 
+    /**
+     *
+     */
     public function forget(): void
     {
         $head = $this->seo->optimize(
@@ -61,8 +80,37 @@ class Web extends Controller
         ]);
     }
 
+    /**
+     * @param $data
+     */
     public function reset($data): void
     {
+        if (empty($_SESSION["forget"])) {
+            flash("info", "Informe seu email para recuperar a senha");
+            $this->router->redirect("web.forget");
+        }
+
+        $email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
+        $forget = filter_var($data["forget"], FILTER_DEFAULT);
+
+        $errForget = "Não foi possível recuperar, tente novamente";
+
+        if (!$email || !$forget) {
+            flash("error", $errForget);
+            $this->router->redirect("web.forget");
+        }
+
+        $user = (new User())
+            ->find(
+                "email = :email AND forget = :forget",
+                "email={$email}&forget={$forget}")
+            ->fetch();
+
+        if (!$user) {
+            flash("error", $errForget);
+            $this->router->redirect("web.forget");
+        }
+
         $head = $this->seo->optimize(
             "Crie sua nova senha | ".site("name"),
             site("desc"),
@@ -75,6 +123,9 @@ class Web extends Controller
         ]);
     }
 
+    /**
+     * @param $data
+     */
     public function error($data): void
     {
         $error = filter_var($data["errcode"], FILTER_VALIDATE_INT);
