@@ -54,22 +54,26 @@ define("MAIL", [
     "host" => "smtp.sendgrid.net",
     "port" => "587",
     "user" => "apikey",
-    "passwd" => "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",
+    "passwd" => "------",
     "from_name" => "Douglas Pinheiro Goulart",
     "from_email" => "douglaspigoulart@gmail.com",
-
 ]);
 
 /**
  * SOCIAL LOGIN: FACEBOOK
  */
 define("FACEBOOK_LOGIN", [
-
+    "clientId" => "------",
+    "clientSecret" => "------",
+    "redirectUrl" => SITE["root"]."/facebook",
+    "graphApiVersion" => "v4.0"
 ]);
 
 /**
  * SOCIAL LOGIN: GOOGLE
  */
 define("GOOGLE_LOGIN", [
-
+    "clientId" => "------",
+    "clientSecret" => "------",
+    "redirectUrl" => SITE["root"]."/google"
 ]);

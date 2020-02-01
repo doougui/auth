@@ -52,14 +52,24 @@ class Web extends Controller
             routeImage("Register")
         )->render();
 
-        $form_user = new \StdClass();
-        $form_user->first_name = null;
-        $form_user->last_name = null;
-        $form_user->email = null;
+        $formUser = new \StdClass();
+        $formUser->first_name = null;
+        $formUser->last_name = null;
+        $formUser->email = null;
+
+        $socialUser = (!empty($_SESSION["facebook_auth"])
+            ? unserialize($_SESSION["facebook_auth"])
+            : (!empty($_SESSION["google_auth"])
+                ? unserialize($_SESSION["google_auth"])
+                : null));
+
+        $formUser->first_name = $socialUser->getFirstName();
+        $formUser->last_name = $socialUser->getLastName();;
+        $formUser->email = $socialUser->getEmail();;
 
         echo $this->view->render("theme/register", [
             "head" => $head,
-            "user" => $form_user
+            "user" => $formUser
         ]);
     }
 
