@@ -284,7 +284,7 @@ class Auth extends Controller
         }
 
         /** @var $googleUser GoogleUser */
-        $googleUser = unserialize($_SESSION["facebook_auth"]);
+        $googleUser = unserialize($_SESSION["google_auth"]);
 
         // Login by ID
         $userById = (new User())->find("google_id = :id", "id={$googleUser->getId()}")->fetch();
@@ -317,7 +317,7 @@ class Auth extends Controller
          */
         if (!empty($_SESSION["facebook_auth"])) {
             /** @var $facebookUser FacebookUser */
-            $facebookUser = serialize($_SESSION["facebook_auth"]);
+            $facebookUser = unserialize($_SESSION["facebook_auth"]);
 
             $user->facebook_id = $facebookUser->getId();
             $user->photo = $facebookUser->getPictureUrl();
@@ -331,7 +331,7 @@ class Auth extends Controller
          */
         if (!empty($_SESSION["google_auth"])) {
             /** @var $googleUser GoogleUser */
-            $googleUser = serialize($_SESSION["google_auth"]);
+            $googleUser = unserialize($_SESSION["google_auth"]);
 
             $user->google_id = $googleUser->getId();
             $user->photo = $googleUser->getAvatar();

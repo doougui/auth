@@ -65,7 +65,7 @@ define("MAIL", [
 define("FACEBOOK_LOGIN", [
     "clientId" => getenv("FACEBOOK_CLIENTID"),
     "clientSecret" => getenv("FACEBOOK_CLIENTSECRET"),
-    "redirectUrl" => SITE["root"]."/facebook",
+    "redirectUri" => SITE["root"]."/facebook",
     "graphApiVersion" => getenv("FACEBOOK_GRAPHAPIVERSION")
 ]);
 
@@ -75,5 +75,5 @@ define("FACEBOOK_LOGIN", [
 define("GOOGLE_LOGIN", [
     "clientId" => getenv("GOOGLE_CLIENTID"),
     "clientSecret" => getenv("GOOGLE_CLIENTSECRET"),
-    "redirectUrl" => SITE["root"]."/google"
+    "redirectUri" => SITE["root"]."/google"
 ]);
