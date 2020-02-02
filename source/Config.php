@@ -22,12 +22,12 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
  * DATABASE CONNECTION
  */
 define("DATA_LAYER_CONFIG", [
-    "driver" => "mysql",
-    "host" => "localhost",
-    "port" => "3306",
-    "dbname" => "auth",
-    "username" => "root",
-    "passwd" => "",
+    "driver" => getenv("DATABASE_DRIVER") ?: "mysql",
+    "host" => getenv("DATABASE_HOST") ?: "localhost",
+    "port" => getenv("DATABASE_PORT") ?: "3306",
+    "dbname" => getenv("DATABASE_DBNAME") ?: "auth",
+    "username" => getenv("DATABASE_USERNAME") ?: "root",
+    "passwd" => getenv("DATABASE_PASSWORD") ?: "",
     "options" => [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -40,40 +40,40 @@ define("DATA_LAYER_CONFIG", [
  * SOCIAL
  */
 define("SOCIAL", [
-    "facebook_page" => "doougui",
-    "facebook_author" => "Douglas Pinheiro Goulart",
-    "facebook_appId" => "1234567890",
-    "twitter_creator" => "oDougui",
-    "twitter_site" => "oDougui"
+    "facebook_page" => getenv("SOCIAL_FACEBOOKPAGE"),
+    "facebook_author" => getenv("SOCIAL_FACEBOOKAUTHOR"),
+    "facebook_appId" => getenv("SOCIAL_FACEBOOKAPPID"),
+    "twitter_creator" => getenv("SOCIAL_TWITTERCREATOR"),
+    "twitter_site" => getenv("SOCIAL_TWITTERSITE")
 ]);
 
 /**
  * MAIL
  */
 define("MAIL", [
-    "host" => "smtp.sendgrid.net",
-    "port" => "587",
-    "user" => "apikey",
-    "passwd" => "------",
-    "from_name" => "Douglas Pinheiro Goulart",
-    "from_email" => "douglaspigoulart@gmail.com",
+    "host" => getenv("MAIL_HOST"),
+    "port" => getenv("MAIL_PORT"),
+    "user" => getenv("MAIL_USER="),
+    "passwd" => getenv("MAIL_PASSWD"),
+    "from_name" => getenv("MAIL_FROMNAME"),
+    "from_email" => getenv("MAIL_FROMEMAIL")
 ]);
 
 /**
  * SOCIAL LOGIN: FACEBOOK
  */
 define("FACEBOOK_LOGIN", [
-    "clientId" => "------",
-    "clientSecret" => "------",
+    "clientId" => getenv("FACEBOOK_CLIENTID"),
+    "clientSecret" => getenv("FACEBOOK_CLIENTSECRET"),
     "redirectUrl" => SITE["root"]."/facebook",
-    "graphApiVersion" => "v4.0"
+    "graphApiVersion" => getenv("FACEBOOK_GRAPHAPIVERSION")
 ]);
 
 /**
  * SOCIAL LOGIN: GOOGLE
  */
 define("GOOGLE_LOGIN", [
-    "clientId" => "------",
-    "clientSecret" => "------",
+    "clientId" => getenv("GOOGLE_CLIENTID"),
+    "clientSecret" => getenv("GOOGLE_CLIENTSECRET"),
     "redirectUrl" => SITE["root"]."/google"
 ]);

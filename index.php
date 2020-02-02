@@ -5,6 +5,11 @@ session_start();
 
 require __DIR__."/vendor/autoload.php";
 
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__."/data");
+$dotenv->load();
+
+require __DIR__."/source/Config.php";
+
 use CoffeeCode\Router\Router;
 $router = new Router(site());
 $router->namespace("Source\Controllers");
