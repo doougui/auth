@@ -3,6 +3,17 @@
 <div class="main_content_box">
     <div class="login">
         <form class="form" action="<?= $router->route("auth.register"); ?>" method="post" autocomplete="off">
+            <?php if ($user->connectedTo): ?>
+                <div class="form_social">
+                    <a
+                        href="<?= $router->route("auth.disconnect"); ?>"
+                        class="btn btn-<?= strtolower($user->connectedTo) ?> btn-full"
+                    >
+                        Desconectar do <?= $user->connectedTo ?>
+                    </a>
+                </div>
+            <?php endif ?>
+
             <div class="login_form_callback">
                 <?= flash(); ?>
             </div>

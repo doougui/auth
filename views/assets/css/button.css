@@ -40,6 +40,10 @@
     background: #54a0ff;
 }
 
+.btn-social {
+    flex-basis: 45%;
+}
+
 .btn-facebook {
     background: #3C5D96;
 }

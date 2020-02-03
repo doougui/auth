@@ -4,8 +4,8 @@
     <div class="login">
         <form class="form" action="<?= $router->route("auth.login"); ?>" method="post" autocomplete="off">
             <div class="form_social">
-                <a href="<?= $router->route("auth.facebook"); ?>" class="btn btn-facebook">Facebook Login</a>
-                <a href="<?= $router->route("auth.google"); ?>" class="btn btn-google">Google Login</a>
+                <a href="<?= $router->route("auth.facebook"); ?>" class="btn btn-social btn-facebook">Facebook Login</a>
+                <a href="<?= $router->route("auth.google"); ?>" class="btn btn-social btn-google">Google Login</a>
             </div>
 
             <div class="login_form_callback">
@@ -16,10 +16,15 @@
                 <span class="field">E-mail:</span>
                 <input value="" type="email" name="email" placeholder="Informe seu e-mail:"/>
             </label>
+
             <label>
                 <span class="field">Senha:</span>
                 <input autocomplete="" type="password" name="passwd" placeholder="Informe sua senha:"/>
             </label>
+
+            <div class="form-recaptcha">
+                <div class="g-recaptcha" data-sitekey="6Lf0Y9UUAAAAAP-4iE45aC9jG-Yd5wh7v0biU0mA"></div>
+            </div>
 
             <div class="form_actions">
                 <button class="btn btn-green">Logar-se</button>

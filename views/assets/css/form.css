@@ -8,7 +8,6 @@
 
 .form_social a {
     font-size: 0.8em;
-    flex-basis: 45%;
 }
 
 .form {
@@ -88,4 +87,13 @@
 
 .form_register_action p {
     font-size: 0.875em;
+}
+
+.form-recaptcha {
+    text-align: center;
+}
+
+.g-recaptcha {
+    margin-bottom: 15px;
+    display: inline-block;
 }

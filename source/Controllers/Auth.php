@@ -51,7 +51,7 @@ class Auth extends Controller
         }
 
         /** SOCIAL VALIDATION */
-        $this->socialValidate($user);
+        $this->socialValidateAndUserUpdate($user);
 
         $_SESSION["user"] = $user->id;
 
@@ -80,7 +80,7 @@ class Auth extends Controller
         $user->password = $data["passwd"];
 
         /** SOCIAL VALIDATION */
-        $this->socialValidate($user);
+        $this->socialValidateAndUserUpdate($user);
 
         if (!$user->save()) {
             echo $this->ajaxResponse("message", [
@@ -95,6 +95,26 @@ class Auth extends Controller
         echo $this->ajaxResponse("redirect", [
             "url" => $this->router->route("app.home")
         ]);
+    }
+
+    /**
+     *
+     */
+    public function disconnect(): void
+    {
+        if ($connectedSocialMedia = preg_array_key_exists(
+            "/_auth$/",
+            $_SESSION)
+        ) {
+            unset($_SESSION[$connectedSocialMedia[0]]);
+        }
+
+        $link = $this->router->route("web.login");
+        flash(
+            "info",
+            "Desconectado com sucesso. Caso queira conectar sua conta novamente, acesse a <a href='{$link}'>PÁGINA DE LOGIN</a>"
+        );
+        $this->router->redirect("web.register");
     }
 
     /**
@@ -205,6 +225,10 @@ class Auth extends Controller
         $error = filter_input(INPUT_GET, "error", FILTER_SANITIZE_STRIPPED);
         $code = filter_input(INPUT_GET, "code", FILTER_SANITIZE_STRIPPED);
 
+        if (!empty($_SESSION["google_auth"])) {
+            unset($_SESSION["google_auth"]);
+        }
+
         if (!$error && !$code) {
             $authUrl = $facebook->getAuthorizationUrl(["scope" => "email"]);
             header("Location: {$authUrl}");
@@ -262,6 +286,10 @@ class Auth extends Controller
         $error = filter_input(INPUT_GET, "error", FILTER_SANITIZE_STRIPPED);
         $code = filter_input(INPUT_GET, "code", FILTER_SANITIZE_STRIPPED);
 
+        if (!empty($_SESSION["facebook_auth"])) {
+            unset($_SESSION["facebook_auth"]);
+        }
+
         if (!$error && !$code) {
             $authUrl = $google->getAuthorizationUrl();
             header("Location: {$authUrl}");
@@ -310,7 +338,10 @@ class Auth extends Controller
         $this->router->redirect("web.register");
     }
 
-    public function socialValidate(User $user): void
+    /**
+     * @param User $user
+     */
+    public function socialValidateAndUserUpdate(User $user): void
     {
         /**
          * FACEBOOK

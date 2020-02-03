@@ -65,3 +65,8 @@ function flash(string $type = null, string $message = null): ?string
 
     return null;
 }
+
+function preg_array_key_exists(string $pattern, array $array) {
+    $keys = array_keys($array);
+    return preg_grep($pattern, $keys);
+}

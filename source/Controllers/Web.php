@@ -52,24 +52,36 @@ class Web extends Controller
             routeImage("Register")
         )->render();
 
-        $formUser = new \StdClass();
-        $formUser->first_name = null;
-        $formUser->last_name = null;
-        $formUser->email = null;
+        $userData = new \StdClass();
+        $userData->first_name = null;
+        $userData->last_name = null;
+        $userData->email = null;
+        $userData->connectedTo = null;
 
-        $socialUser = (!empty($_SESSION["facebook_auth"])
-            ? unserialize($_SESSION["facebook_auth"])
-            : (!empty($_SESSION["google_auth"])
-                ? unserialize($_SESSION["google_auth"])
-                : null));
+        $socialUser = null;
 
-        $formUser->first_name = $socialUser->getFirstName();
-        $formUser->last_name = $socialUser->getLastName();;
-        $formUser->email = $socialUser->getEmail();;
+        /**
+         * Check if there's a session with "_auth" at the end of the string
+         */
+        if ($connectedSocialMedia = preg_array_key_exists(
+            "/_auth$/",
+            $_SESSION)
+        ) {
+            $socialUser = unserialize($_SESSION[$connectedSocialMedia[0]]);
+            $userData->connectedTo = ucfirst(
+                explode("_", $connectedSocialMedia[0])[0]
+            );
+        }
+
+        if ($socialUser) {
+            $userData->first_name = $socialUser->getFirstName();
+            $userData->last_name = $socialUser->getLastName();;
+            $userData->email = $socialUser->getEmail();;
+        }
 
         echo $this->view->render("theme/register", [
             "head" => $head,
-            "user" => $formUser
+            "user" => $userData
         ]);
     }
 
