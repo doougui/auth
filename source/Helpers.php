@@ -66,7 +66,28 @@ function flash(string $type = null, string $message = null): ?string
     return null;
 }
 
-function preg_array_key_exists(string $pattern, array $array) {
+function preg_array_key_exists(string $pattern, array $array): array {
     $keys = array_keys($array);
     return preg_grep($pattern, $keys);
+}
+
+function csrfToken(bool $verify = false, string $csrfToken = null): ?string {
+    if (!$verify) {
+        if (empty($_SESSION["csrf_token"])) {
+            $_SESSION["csrf_token"] = md5(uniqid(rand(), true));
+        }
+
+        return $_SESSION["csrf_token"];
+    }
+
+    if (
+        $verify
+        && !empty($csrfToken)
+        && !empty($_SESSION["csrf_token"])
+        && $csrfToken == $_SESSION["csrf_token"]
+    ) {
+        return $_SESSION["csrf_token"];
+    }
+
+    return null;
 }

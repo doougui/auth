@@ -31,6 +31,13 @@ class Auth extends Controller
     {
         $email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
         $password = filter_var($data["passwd"], FILTER_DEFAULT);
+        $csrf = filter_var($data["csrf"], FILTER_DEFAULT);
+
+        if (!csrfToken(true, $csrf)) {
+            flash("error", "Origem não autorizada. Está é a página de login REAL");
+            $this->router->redirect("web.login");
+            return;
+        }
 
         if (!$email || !$password) {
             echo $this->ajaxResponse("message", [
@@ -64,6 +71,12 @@ class Auth extends Controller
     public function register($data): void
     {
         $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+
+        if (!csrfToken(true, $data["csrf"])) {
+            flash("error", "Origem não autorizada. Está é a página de cadastro REAL");
+            $this->router->redirect("web.register");
+            return;
+        }
 
         if (in_array("", $data)) {
             echo $this->ajaxResponse("message", [
@@ -123,6 +136,13 @@ class Auth extends Controller
     public function forget($data): void
     {
         $email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
+        $csrf = filter_var($data["csrf"], FILTER_DEFAULT);
+
+        if (!csrfToken(true, $csrf)) {
+            flash("error", "Origem não autorizada. Está é a página de reset REAL");
+            $this->router->redirect("web.forget");
+            return;
+        }
 
         if (!$email) {
             echo $this->ajaxResponse("message", [
@@ -173,7 +193,18 @@ class Auth extends Controller
      */
     public function reset($data): void
     {
-        if (empty($_SESSION["forget"]) || !$user = (new User())->findById($_SESSION["forget"])) {
+        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+
+        if (!csrfToken(true, $data["csrf"])) {
+            flash("error", "Origem não autorizada. Está é a página de reset REAL");
+            $this->router->redirect("web.forget");
+            return;
+        }
+
+        if (
+            empty($_SESSION["forget"])
+            || !$user = (new User())->findById($_SESSION["forget"])
+        ) {
             flash("error", "Não foi possível recuperar, tente novamente");
             echo $this->ajaxResponse("redirect", [
                 "url" => $this->router->route("web.forget")

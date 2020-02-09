@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="<?= asset("css/dist/style.min.css"); ?>"/>
     <link rel="icon" type="image/png" href="<?= asset("/images/favicon.png"); ?>"/>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!--    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
 </head>
 <body>
 

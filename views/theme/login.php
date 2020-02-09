@@ -22,9 +22,13 @@
                 <input autocomplete="" type="password" name="passwd" placeholder="Informe sua senha:"/>
             </label>
 
-            <div class="form-recaptcha">
-                <div class="g-recaptcha" data-sitekey="6Lf0Y9UUAAAAAP-4iE45aC9jG-Yd5wh7v0biU0mA"></div>
-            </div>
+            <label>
+                <input value="<?= $csrf ?>" autocomplete="" type="hidden" name="csrf" readonly/>
+            </label>
+
+<!--            <div class="form-recaptcha">-->
+<!--                <div class="g-recaptcha" data-sitekey="6Lf0Y9UUAAAAAP-4iE45aC9jG-Yd5wh7v0biU0mA"></div>-->
+<!--            </div>-->
 
             <div class="form_actions">
                 <button class="btn btn-green">Logar-se</button>

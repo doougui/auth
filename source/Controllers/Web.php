@@ -35,8 +35,11 @@ class Web extends Controller
             routeImage("Login")
         )->render();
 
+        $csrfToken = csrfToken();
+
         echo $this->view->render("theme/login", [
-            "head" => $head
+            "head" => $head,
+            "csrf" => $csrfToken
         ]);
     }
 
@@ -60,6 +63,8 @@ class Web extends Controller
 
         $socialUser = null;
 
+        $csrfToken = csrfToken();
+
         /**
          * Check if there's a session with "_auth" at the end of the string
          */
@@ -81,7 +86,8 @@ class Web extends Controller
 
         echo $this->view->render("theme/register", [
             "head" => $head,
-            "user" => $userData
+            "user" => $userData,
+            "csrf" => $csrfToken
         ]);
     }
 
@@ -97,8 +103,11 @@ class Web extends Controller
             routeImage("Forget")
         )->render();
 
+        $csrfToken = csrfToken();
+
         echo $this->view->render("theme/forget", [
-            "head" => $head
+            "head" => $head,
+            "csrf" => $csrfToken
         ]);
     }
 

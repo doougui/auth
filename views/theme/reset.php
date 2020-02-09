@@ -17,6 +17,10 @@
                 <input value="" type="password" name="password_re" placeholder="Repita sua nova senha:"/>
             </label>
 
+            <label>
+                <input value="<?= $csrf ?>" autocomplete="" type="hidden" name="csrf" readonly/>
+            </label>
+
             <div class="form_actions">
                 <button class="btn btn-green btn-full">Atualizar Minha Senha</button>
             </div>

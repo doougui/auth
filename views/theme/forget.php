@@ -12,6 +12,10 @@
                 <input value="" type="email" name="email" placeholder="Informe seu e-mail:"/>
             </label>
 
+            <label>
+                <input value="<?= $csrf ?>" autocomplete="" type="hidden" name="csrf" readonly/>
+            </label>
+
             <div class="form_actions">
                 <button class="btn btn-green btn-full">Recuperar Minha Senha</button>
             </div>
